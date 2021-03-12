@@ -4,6 +4,23 @@ import csv
 import matplotlib.pyplot as plt
 import random
 
+
+'''
+{
+    "Website": {
+        "numeric": {
+            "unused-javascript": {
+                "score": 0.3, "overallsaving": 0.3
+            },
+            ......
+        },
+        "binary": {
+    
+        },
+        "null": []
+    }
+}
+'''
 def makeAuditList ():
     audit_obj = {}
     for file_name in os.listdir("../data/json_files"):
