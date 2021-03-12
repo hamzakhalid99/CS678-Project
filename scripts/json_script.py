@@ -12,7 +12,7 @@ def makeAuditList ():
             "binary_score_audits": {},
             "null_score_audits": []
         }
-    for file_name in sorted(os.listdir("../data/json_files")):
+    for file_name in sorted(os.listdir("../data/json_files"), key=lambda x: int(x.partition('-')[0])):
         print(file_name)
         with open("../data/json_files/" + file_name) as json_file:
             file_name = file_name.split('.')[0].lower()
