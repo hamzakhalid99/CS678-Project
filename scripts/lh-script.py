@@ -1,19 +1,65 @@
-import csv
+import sys
 import os
+import csv
+import json
 
-top_50 = []
-with open('Alexa_top_50_global_09-02-2021.csv') as csv_file:
-    csv_obj = csv.reader(csv_file)
-    i = 1
-    for row in csv_obj:
-        top_50.append("rank#" + str(i) + "-" + row[0])
-        i += 1
+# maybe later:
+# defaults = {
+#     "output_file_types" : "json,csv", # can convert json to html at https://googlechrome.github.io/lighthouse/viewer/
+#     "save_log" : True,
 
-# for commands and stuff:
-# https://github.com/GoogleChrome/lighthouse#using-the-node-cli
+# }
 
-for i in range(len(top_50)):
-    command = "lighthouse http://" + top_50[i] + " --output=json --output-path ./" + top_50[i] + ".json"
-    os.system(command)
+def error_checker(json_filename):
+    # Checking if there were any errors:
+    
+    with open(json_filename, encoding="utf-8") as file_obj: 
+        json_obj = json.load(file_obj) 
+        
+        error = True
+        try:
+            json_obj['runtimeError']
+        except:
+            error = False 
+    
+    return error
 
-print("\n\n\n --- DONE --- \n")
+def audit(urls):
+    error_urls = {}
+    for rank in urls:
+        url = urls[rank]
+        command = "lighthouse http://" + url + " --output json,csv --enable-error-reporting --output-path ./data/" + rank + "-" + url + ".json ./data/" + rank + "-" + url + ".csv"
+        
+        print("Auditing:", url)
+        os.system(command) # for commands: https://github.com/GoogleChrome/lighthouse#using-the-node-cli
+        if error_checker("./data/" + rank + "-" + url + ".report.json") == True:
+            error_urls[rank] = url
+            print("Audit failed for:", url)
+        else:
+            print("Audit successful for:", url)
+    return error_urls
+
+def parse_csv(filename):
+    urls = {}
+    with open(filename) as csv_file:
+        # csv row format: rank, url
+        csv_obj = csv.reader(csv_file)
+        for row in csv_obj:
+            urls[str(row[0])] = row[1].lower()
+    return urls
+
+if __name__ == "__main__":
+    # expected terminal command: python3 lh_script.py data.csv 
+    if len(sys.argv) >= 2:
+        filename = sys.argv[1]
+    else:
+        sys.exit("ERROR: No data csv file provided. Program Exiting.")  
+            
+    urls = parse_csv(filename)
+
+
+    error_urls = audit(urls)
+    while len(error_urls) != 0: # re-audit websites that gave an error
+        audit(error_urls)
+
+    print("\n\n\n --- ALL DONE --- \n")
