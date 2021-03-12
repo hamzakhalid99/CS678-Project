@@ -1,21 +1,22 @@
 import json
 import os
+import csv
 import matplotlib.pyplot as plt
-
+import random
 
 def makeAuditList ():
     audit_obj = {}
     for file_name in os.listdir("../data/json_files"):
-        file_name = file_name.split('.')[0].lower()
+        file_name = file_name[:-5].lower()
         audit_obj[file_name] = {
             "numeric_score_audits": {},
             "binary_score_audits": {},
             "null_score_audits": []
         }
     for file_name in sorted(os.listdir("../data/json_files"), key=lambda x: int(x.partition('-')[0])):
-        print(file_name)
         with open("../data/json_files/" + file_name) as json_file:
-            file_name = file_name.split('.')[0].lower()
+            # file_name = file_name.split('.')[0].lower()
+            file_name = file_name[:-5].lower()
             json_file_obj = json.load(json_file)
             audits = json_file_obj["audits"]
             for key, value in audits.items():
@@ -42,28 +43,30 @@ def makeAuditList ():
     return audit_obj
 
 def plotGraph (x, y, title_, xlabel_, ylabel_, name):
-    plt.plot(x, y, 'o')
+    rgb = (random.random(), random.random(), random.random())
+    plt.plot(x, y, c=rgb)
     plt.title(title_)
     plt.xlabel(xlabel_)
     plt.ylabel(ylabel_)
-    plt.show()
+    # plt.show()
     plt.savefig(name)
 
 def auditScorevsTime (audits):
-    scorePoints = []
-    savingsPoints = []
-    # print(audits)
     for key, value in audits.items():
-        for key2, value2 in value['numeric_score_audits'].items():
-            if "overallSavingsMs" in value2:
-                scorePoints.append(value2['score'])
-                savingsPoints.append(value2['overallSavingsMs'])
-    plt.plot(scorePoints, savingsPoints, 'o')
-    plt.title('Score vs time_savings')
-    plt.xlabel('score')
-    plt.ylabel('potential saved time in ms')
+        scorePoints = []
+        savingsPoints = []
+        i = 0
+        if i < 10:
+            for key2, value2 in value['numeric_score_audits'].items():
+                if "overallSavingsMs" in value2:
+                    scorePoints.append(value2['score'])
+                    savingsPoints.append(value2['overallSavingsMs'])
+        else:
+            break
+        plotGraph(scorePoints, savingsPoints, 'Score vs time_savings', 'score', 'potential saved time in ms', 'score-vs-overallSavingsMs')
+        # break
+        i += 1
     plt.show()
-    plt.savefig('score-vs-overallSavingsMs')
 
 def specificAuditScoreTrend (auditName, audits):
     scorePoints = []
@@ -78,10 +81,42 @@ def specificAuditScoreTrend (auditName, audits):
     plotGraph(x, scorePoints, "Ranking-vs-" + auditName, "Ranking", "Score: " + auditName, "ranking-vs-" + auditName)
 
 
+def readFile (fileName, websiteType, audits):
+    filtered = {
+        'e': [],
+        'v': [],
+        's': []
+    }
+    with open(fileName, 'r') as fileObj:
+        fileObj = csv.reader(fileObj)
+        i = 0
+        for row in fileObj:
+            if i < 200:
+                if row[2] == 'e':
+                    filtered['e'].append(row[0] + '-' + row[1])
+                elif row[2] == 'v':
+                    filtered['v'].append(row[0] + '-' + row[1])
+                elif row[2] == 's':
+                    filtered['s'].append(row[0] + '-' + row[1])
+            i += 1
+        return filtered
 if __name__ == "__main__":
     audits = makeAuditList()
-    print(audits['20-netflix'])
-    specificAuditScoreTrend("unused-javascript", audits)
+    # print(audits['20-netflix'])
+    # specificAuditScoreTrend("unused-javascript", audits)
+    filtered = readFile("../data/categories.csv", 'r', audits)
+    # print(audits['01-google.com'])
+    # newAudits = {}
+    # i = 0
+    # for key, value in filtered.items():
+    #     print(value)
+    #     for website in value:
+    #         if i < 50:
+    #             newAudits[website] = audits[website]
+    #         else:
+    #             break
+    #     i += 1
+    # print(newAudits)
     # print(audits['google']['numeric_score_audits'])
-    # auditScorevsTime(audits)
+    auditScorevsTime(audits)
     # print(audits)
