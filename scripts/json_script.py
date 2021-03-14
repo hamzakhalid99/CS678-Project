@@ -21,17 +21,36 @@ import random
     }
 }
 '''
+
+def greatestImpact(audits):
+    # print(audits)
+    impact = {}
+    for website, scores_dict in audits.items(): #scores_dict is the dictionary of scores.
+        numeric_scores = scores_dict["numeric_score_audits"]
+        impact[website] = {} 
+
+        for  metric, details in numeric_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
+            try:
+                impact[website][metric] = [details["score"], details["overallSavingsMs"]]   #format: website -> [score, savings]
+            except:
+                pass
+        print(impact)
+
+        # print(numeric_scores)
+
+
+
 def makeAuditList ():
     audit_obj = {}
-    for file_name in os.listdir("../data/json_files"):
+    for file_name in os.listdir("data/json_files"):
         file_name = file_name[:-5].lower()
         audit_obj[file_name] = {
             "numeric_score_audits": {},
             "binary_score_audits": {},
             "null_score_audits": []
         }
-    for file_name in sorted(os.listdir("../data/json_files"), key=lambda x: int(x.partition('-')[0])):
-        with open("../data/json_files/" + file_name) as json_file:
+    for file_name in sorted(os.listdir("data/json_files"), key=lambda x: int(x.partition('-')[0])):
+        with open("data/json_files/" + file_name) as json_file:
             # file_name = file_name.split('.')[0].lower()
             file_name = file_name[:-5].lower()
             json_file_obj = json.load(json_file)
@@ -50,14 +69,35 @@ def makeAuditList ():
                                 value["id"]: {
                                     "score": value["score"]
                                 }})
+
+                    # if "numericValue" in value:
+                    #     audit_obj[file_name]["numeric_score_audits"].update({\
+                    #             value["id"]: {
+                    #                 "numericValue": value["numericValue"],
+                    #                 "numericUnit": value["numericUnit"]
+                    #             }})
+                                
                 elif value["scoreDisplayMode"] == "binary":
                     audit_obj[file_name]['binary_score_audits'].update({\
                             value["id"]: {
                                 "score": value["score"]
                             }})
+                    if "numericValue" in value:
+                        audit_obj[file_name]["numeric_score_audits"].update({\
+                                value["id"]: {
+                                    "numericValue": value["numericValue"],
+                                    "numericUnit": value["numericUnit"]
+                                }})
                 if value["score"] == None:
                     audit_obj[file_name]["null_score_audits"].append(value["id"])
+                    if "numericValue" in value:
+                        audit_obj[file_name]["numeric_score_audits"].update({\
+                                value["id"]: {
+                                    "numericValue": value["numericValue"],
+                                    "numericUnit": value["numericUnit"]
+                                }})
     return audit_obj
+
 
 def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     rgb = (random.random(), random.random(), random.random())
@@ -119,9 +159,9 @@ def readFile (fileName, websiteType, audits):
         return filtered
 if __name__ == "__main__":
     audits = makeAuditList()
-    # print(audits['20-netflix'])
+    print(audits['20-netflix.com']["numeric_score_audits"]["first-contentful-paint"])
     # specificAuditScoreTrend("unused-javascript", audits)
-    filtered = readFile("../data/categories.csv", 'r', audits)
+    # filtered = readFile("data/categories.csv", 'r', audits)
     # print(audits['01-google.com'])
     # newAudits = {}
     # i = 0
@@ -135,5 +175,6 @@ if __name__ == "__main__":
     #     i += 1
     # print(newAudits)
     # print(audits['google']['numeric_score_audits'])
-    auditScorevsTime(audits)
-    # print(audits)
+    # auditScorevsTime(audits)
+    # print(greatestImpact(audits))
+    # print (audits["39-adobe.com"]['numeric_score_audits']["unused-javascript"])
