@@ -22,11 +22,13 @@ import random
 }
 '''
 
-def greatestImpact(audits):
+def greatestImpact(audits, metricOne, metricTwo):
     # print(audits)
     impact = {}
     for website, scores_dict in audits.items(): #scores_dict is the dictionary of scores.
         numeric_scores = scores_dict["numeric_score_audits"]
+        binary_scores = scores_dict["binary_score_audits"]
+        null_scores = scores_dict["null_score_audits"]
         impact[website] = {} 
 
         for  metric, details in numeric_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
@@ -35,7 +37,38 @@ def greatestImpact(audits):
                 impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
             except:
                 pass
-        print(impact)
+        for  metric, details in binary_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
+            print("here", metric)
+            try:
+                impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
+            except:
+                pass
+        for  metric, details in null_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
+            # print(metric, details)
+            try:
+                impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
+            except:
+                pass
+    print(len(impact))
+    
+    metricOneValues = []
+    metricTwoValues = []
+
+    for website, metric in impact.items():
+        # print (metric)
+        for key, val in metric.items():
+            # print(key, "\n")
+            # print(key, metricOne, metricTwo)
+
+            if key == metricOne:
+                metricOneValues.append(impact[website][key][2])
+
+            elif key == metricTwo:
+                metricTwoValues.append(impact[website][key][2])
+    
+    # print (metricOneValues, metricTwoValues)
+
+
 
         # print(numeric_scores)
 
@@ -179,7 +212,7 @@ def readFile (fileName, websiteType, audits):
 if __name__ == "__main__":
     audits = makeAuditList()
     # print(audits['20-netflix.com']["numeric_score_audits"]["first-contentful-paint"])
-    print(greatestImpact(audits))
+    greatestImpact(audits, "mainthread-work-breakdown", "unused-javascript")
     # specificAuditScoreTrend("unused-javascript", audits)
     # filtered = readFile("data/categories.csv", 'r', audits)
     # print(audits['01-google.com'])
