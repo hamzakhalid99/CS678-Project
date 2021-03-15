@@ -47,7 +47,7 @@ def makeAuditList ():
         audit_obj[file_name] = {
             "numeric_score_audits": {},
             "binary_score_audits": {},
-            "null_score_audits": []
+            "null_score_audits": {}
         }
     for file_name in sorted(os.listdir("data/json_files"), key=lambda x: int(x.partition('-')[0])):
         with open("data/json_files/" + file_name) as json_file:
@@ -95,24 +95,39 @@ def makeAuditList ():
                     #             }})
                                 
                 elif value["scoreDisplayMode"] == "binary":
-                    audit_obj[file_name]['binary_score_audits'].update({\
-                            value["id"]: {
-                                "score": value["score"]
-                            }})
                     if "numericValue" in value:
-                        audit_obj[file_name]["numeric_score_audits"].update({\
+                        audit_obj[file_name]['binary_score_audits'].update({\
                                 value["id"]: {
+                                    "score": value["score"],
                                     "numericValue": value["numericValue"],
                                     "numericUnit": value["numericUnit"]
                                 }})
+                    else:
+                        audit_obj[file_name]["numeric_score_audits"].update({\
+                                value["id"]: {
+                                    "score": value["score"],
+                                }})
+
                 if value["score"] == None:
-                    audit_obj[file_name]["null_score_audits"].append(value["id"])
                     if "numericValue" in value:
-                        audit_obj[file_name]["numeric_score_audits"].update({\
+                        audit_obj[file_name]['null_score_audits'].update({\
                                 value["id"]: {
+                                    "score": value["score"],
                                     "numericValue": value["numericValue"],
                                     "numericUnit": value["numericUnit"]
                                 }})
+
+                    else:
+                        audit_obj[file_name]["null_score_audits"].update({\
+                                value["id"]: {
+                                    "score": value["score"]
+                                }})
+                    # if "numericValue" in value:
+                    #     audit_obj[file_name]["numeric_score_audits"].update({\
+                    #             value["id"]: {
+                    #                 "numericValue": value["numericValue"],
+                    #                 "numericUnit": value["numericUnit"]
+                    #             }})
     return audit_obj
 
 
