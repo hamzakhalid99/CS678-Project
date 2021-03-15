@@ -115,12 +115,7 @@ def makeAuditList ():
                                 value["id"]: {
                                     "score": value["score"]
                                 }})
-                    # if "numericValue" in value:
-                    #     audit_obj[file_name]["numeric_score_audits"].update({\
-                    #             value["id"]: {
-                    #                 "numericValue": value["numericValue"],
-                    #                 "numericUnit": value["numericUnit"]
-                    #             }})
+
     return audit_obj
 
 
