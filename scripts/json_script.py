@@ -57,13 +57,30 @@ def makeAuditList ():
             audits = json_file_obj["audits"]
             for key, value in audits.items():
                 if value["scoreDisplayMode"] == "numeric":
-                    if "details" in value:
+                    if "details" in value and "numericValue" in value:
+                        if "overallSavingsMs" in value["details"]:
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsMs": value["details"]["overallSavingsMs"],
+                                        "numericValue": value["numericValue"],
+                                        "numericUnit": value["numericUnit"]
+                                    }})
+                    elif "details" in value and "numericValue" not in value:
                         if "overallSavingsMs" in value["details"]:
                             audit_obj[file_name]['numeric_score_audits'].update({\
                                     value["id"]: {
                                         "score": value["score"],
                                         "overallSavingsMs": value["details"]["overallSavingsMs"]
                                     }})
+
+                    elif "details" not in value and "numericValue" in value:
+                        audit_obj[file_name]['numeric_score_audits'].update({\
+                                value["id"]: {
+                                    "score": value["score"],
+                                    "numericValue": value["numericValue"],
+                                    "numericUnit": value["numericUnit"]
+                                }})
                     else:
                         audit_obj[file_name]['numeric_score_audits'].update({\
                                 value["id"]: {
