@@ -30,11 +30,12 @@ def greatestImpact(audits):
         impact[website] = {} 
 
         for  metric, details in numeric_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
+            print(metric, details)
             try:
                 impact[website][metric] = [details["score"], details["overallSavingsMs"]]   #format: website -> [score, savings]
             except:
                 pass
-        print(impact)
+        # print(impact)
 
         # print(numeric_scores)
 
@@ -115,9 +116,7 @@ def makeAuditList ():
                                 value["id"]: {
                                     "score": value["score"]
                                 }})
-
     return audit_obj
-
 
 def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     rgb = (random.random(), random.random(), random.random())
@@ -179,7 +178,8 @@ def readFile (fileName, websiteType, audits):
         return filtered
 if __name__ == "__main__":
     audits = makeAuditList()
-    print(audits['20-netflix.com']["numeric_score_audits"]["first-contentful-paint"])
+    # print(audits['20-netflix.com']["numeric_score_audits"]["first-contentful-paint"])
+    print(greatestImpact(audits))
     # specificAuditScoreTrend("unused-javascript", audits)
     # filtered = readFile("data/categories.csv", 'r', audits)
     # print(audits['01-google.com'])
