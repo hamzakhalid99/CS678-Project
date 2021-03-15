@@ -30,12 +30,12 @@ def greatestImpact(audits):
         impact[website] = {} 
 
         for  metric, details in numeric_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
-            print(metric, details)
+            # print(metric, details)
             try:
-                impact[website][metric] = [details["score"], details["overallSavingsMs"]]   #format: website -> [score, savings]
+                impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
             except:
                 pass
-        # print(impact)
+        print(impact)
 
         # print(numeric_scores)
 
