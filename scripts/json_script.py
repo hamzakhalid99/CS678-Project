@@ -17,7 +17,7 @@ import random
         "binary": {
     
         },
-        "null": []
+        "null": [] -> {}
     }
 }
 '''
@@ -32,7 +32,6 @@ def greatestImpact(audits, metricOne, metricTwo):
         impact[website] = {} 
 
         for  metric, details in numeric_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
-            # print(metric, details)
             try:
                 impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
             except:
@@ -44,12 +43,11 @@ def greatestImpact(audits, metricOne, metricTwo):
             except:
                 pass
         for  metric, details in null_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
-            # print(metric, details)
             try:
                 impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
             except:
                 pass
-    print(len(impact))
+    print(impact["20-netflix.com"]["unused-javascript"])
     
     metricOneValues = []
     metricTwoValues = []
@@ -57,22 +55,19 @@ def greatestImpact(audits, metricOne, metricTwo):
     for website, metric in impact.items():
         # print (metric)
         for key, val in metric.items():
-            # print(key, "\n")
-            # print(key, metricOne, metricTwo)
-
             if key == metricOne:
                 metricOneValues.append(impact[website][key][2])
 
             elif key == metricTwo:
                 metricTwoValues.append(impact[website][key][2])
     
-    # print (metricOneValues, metricTwoValues)
+    print (metricOneValues, metricTwoValues)
 
+    y_axis = list(range(1,len(metricOneValues)+1))
 
-
-        # print(numeric_scores)
-
-
+    plotGraph (y_axis, metricOneValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
+    plotGraph (y_axis, metricTwoValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
+    # plt.show()
 
 def makeAuditList ():
     audit_obj = {}
@@ -211,8 +206,8 @@ def readFile (fileName, websiteType, audits):
         return filtered
 if __name__ == "__main__":
     audits = makeAuditList()
-    # print(audits['20-netflix.com']["numeric_score_audits"]["first-contentful-paint"])
-    greatestImpact(audits, "mainthread-work-breakdown", "unused-javascript")
+    # print(audits['20-netflix.com'])
+    greatestImpact(audits, "unused-css-rules", "unused-javascript")
     # specificAuditScoreTrend("unused-javascript", audits)
     # filtered = readFile("data/categories.csv", 'r', audits)
     # print(audits['01-google.com'])
