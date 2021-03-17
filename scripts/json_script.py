@@ -35,7 +35,7 @@ def greatestImpact(audits, metricOne, metricTwo):
             try:
                 impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
             except:
-                pass
+                print(metric)
         for  metric, details in binary_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
             print("here", metric)
             try:
@@ -65,8 +65,8 @@ def greatestImpact(audits, metricOne, metricTwo):
 
     y_axis = list(range(1,len(metricOneValues)+1))
 
-    plotGraph (y_axis, metricOneValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
-    plotGraph (y_axis, metricTwoValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
+    # plotGraph (y_axis, metricOneValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
+    # plotGraph (y_axis, metricTwoValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
     # plt.show()
 
 def makeAuditList ():
@@ -125,7 +125,7 @@ def makeAuditList ():
                                     "numericUnit": value["numericUnit"]
                                 }})
                     else:
-                        audit_obj[file_name]["numeric_score_audits"].update({\
+                        audit_obj[file_name]["binary_score_audits"].update({\
                                 value["id"]: {
                                     "score": value["score"],
                                 }})
@@ -138,7 +138,6 @@ def makeAuditList ():
                                     "numericValue": value["numericValue"],
                                     "numericUnit": value["numericUnit"]
                                 }})
-
                     else:
                         audit_obj[file_name]["null_score_audits"].update({\
                                 value["id"]: {
@@ -207,7 +206,7 @@ def readFile (fileName, websiteType, audits):
 if __name__ == "__main__":
     audits = makeAuditList()
     # print(audits['20-netflix.com'])
-    greatestImpact(audits, "unused-css-rules", "unused-javascript")
+    greatestImpact(audits, "largest-contentful-paint", "unused-javascript")
     # specificAuditScoreTrend("unused-javascript", audits)
     # filtered = readFile("data/categories.csv", 'r', audits)
     # print(audits['01-google.com'])
