@@ -10,6 +10,16 @@ import json
 
 # }
 
+on_phone_command = ' ' # https://github.com/GoogleChrome/lighthouse/blob/master/docs/readme.md#testing-on-a-mobile-device
+# ^ must have previously connected with the phone with adb and set port to 9222 and forwarding daemon in adb set. Sample:
+# $ adb kill-server
+# $ adb devices -l
+# * daemon not running. starting it now on port 5037 *
+# * daemon started successfully *
+# 00a2fd8b1e631fcb       device usb:335682009X product:bullhead model:Nexus_5X device:bullhead
+# $ adb forward tcp:9222 localabstract:chrome_devtools_remote
+# $ lighthouse --port=9222 --screenEmulation.disabled --throttling.cpuSlowdownMultiplier=1 https://example.com
+
 def error_checker(json_filename):
     # Checking if there were any errors:
     
@@ -28,7 +38,7 @@ def audit(urls):
     error_urls = {}
     for rank in urls:
         url = urls[rank]
-        command = "lighthouse http://" + url + " --output json,csv --enable-error-reporting --output-path ./data/" + rank + "-" + url + ".json ./data/" + rank + "-" + url + ".csv"
+        command = "lighthouse" + on_phone_command + "http://" + url + " --output json,csv --enable-error-reporting --output-path ./data/" + rank + "-" + url + ".json ./data/" + rank + "-" + url + ".csv"
         
         print("Auditing:", url)
         os.system(command) # for commands: https://github.com/GoogleChrome/lighthouse#using-the-node-cli
@@ -49,12 +59,16 @@ def parse_csv(filename):
     return urls
 
 if __name__ == "__main__":
-    # expected terminal command: python3 lh_script.py data.csv 
+    # expected terminal command: python3 lh_script.py data.csv phone=true
     if len(sys.argv) >= 2:
         filename = sys.argv[1]
     else:
         sys.exit("ERROR: No data csv file provided. Program Exiting.")  
-            
+
+    if len(sys.argv) >= 3:
+        if sys.argv[2] == 'phone=true':
+            on_phone_command = ' --port=9222 --screenEmulation.disabled --throttling.cpuSlowdownMultiplier=1 '    
+
     urls = parse_csv(filename)
 
 
