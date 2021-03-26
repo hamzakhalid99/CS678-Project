@@ -159,18 +159,18 @@ def auditScorevsTime (audits):
     for key, value in audits.items():
         scorePoints = []
         savingsPoints = []
-        i = 0
-        if i < 10:
-            for key2, value2 in value['numeric_score_audits'].items():
-                if "overallSavingsMs" in value2:
-                    scorePoints.append(value2['score'])
-                    savingsPoints.append(value2['overallSavingsMs'])
-        else:
-            break
-        plotGraph(scorePoints, savingsPoints, 'Score vs time_savings', 'score', 'potential saved time in ms', 'score-vs-overallSavingsMs')
+        # i = 0
+        # if i < 10:
+        for key2, value2 in value['numeric_score_audits'].items():
+            if "overallSavingsMs" in value2:
+                scorePoints.append(value2['score'])
+                savingsPoints.append(value2['overallSavingsMs'])
+        # else:
+        #     break
         # break
-        i += 1
-    plt.show()
+        # i += 1
+    plotGraph(scorePoints, savingsPoints, 'Score vs time_savings', 'score', 'potential saved time in ms', 'score-vs-overallSavingsMs')
+    # plt.show()
 
 def specificAuditScoreTrend (auditName, audits):
     scorePoints = []
@@ -219,25 +219,15 @@ def performanceMetricAnalysis (audits, metricOne, metricTwo):
                 if 'score' in value2:
                     metricTwoSCores.append(value2['score'])
                 if 'numericValue' in value2:
-                    # print(key2, value2)
                     metricTwoNumericVals.append(value2['numericValue'])
             if key2 == metricOne:
-                print('here')
                 if 'score' in value2:
-                    print('here')
                     metricOneScores.append(value2['score'])
                 if 'numericValue' in value2:
                     metricOneNumericVals.append(value2['numericValue'])
-
-    # print(metricOneNumericVals)
-    print(metricOneScores)
-    print()
-    print(metricTwoNumericVals)
     plotGraph(metricOneScores, metricTwoNumericVals, metricOne + " score vs " + metricTwo + " numeric Value", metricOne + " scores", metricTwo + ' numericValue', metricOne + " score vs " + metricTwo + " numeric Value")
 
-
-
-def plotGraph (x, y, title_, xlabel_, ylabel_, name, legend_):
+def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     rgb = (random.random(), random.random(), random.random())
     x = np.array(x)
     y = np.array(y)
@@ -248,8 +238,8 @@ def plotGraph (x, y, title_, xlabel_, ylabel_, name, legend_):
     # plt.set_label(legend_)
     plt.ylabel(ylabel_)
     # plt.legend()
-    # plt.show()
     # plt.savefig(name)
+    # plt.show()
 
 def overallMetricAnalysis (audits, metric):
     scores = {}
@@ -285,28 +275,10 @@ def overallMetricAnalysis (audits, metric):
     plt.savefig('plot')
     # print(scores)
 if __name__ == "__main__":
-    audits = makeAuditList()
-    print(audits['15-weibo.com']['numeric_score_audits']['preload-lcp-image'])
-        
-                # print(key, ": ", value['efficient-animated-content'])
-    # performanceMetricAnalysis (audits, 'unused-css-rules', "slargest-contentful-paint")
+    audits = makeAuditList()        
+    # performanceMetricAnalysis (audits, 'unused-javascript', "largest-contentful-paint")
+    # performanceMetricAnalysis (audits, 'unused-css-rules', "largest-contentful-paint")
+    # performanceMetricAnalysis (audits, 'unused-css-rules', "first-contentful-paint")
     overallMetricAnalysis(audits, 'largest-contentful-paint')
-    # greatestImpact(audits, "largest-contentful-paint", "unused-javascript")
-    # specificAuditScoreTrend("unused-javascript", audits)
-    # filtered = readFile("data/categories.csv", 'r', audits)
-    # print(audits['01-google.com'])
-    # newAudits = {}
-    # i = 0
-    # for key, value in filtered.items():
-    #     print(value)
-    #     for website in value:
-    #         if i < 50:
-    #             newAudits[website] = audits[website]
-    #         else:
-    #             break
-    #     i += 1
-    # print(newAudits)
-    # print(audits['google']['numeric_score_audits'])
+    # specificAuditScoreTrend("unused-css-rules", audits)
     # auditScorevsTime(audits)
-    # print(greatestImpact(audits))
-    # print (audits["39-adobe.com"]['numeric_score_audits']["unused-javascript"]);
