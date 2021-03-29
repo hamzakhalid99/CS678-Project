@@ -308,9 +308,11 @@ if __name__ == "__main__":
     # performanceMetricAnalysis (audits, 'unused-javascript', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "first-contentful-paint")
-    # print(audits)
     top_ten_gradients = overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
-    print(top_ten_gradients)
+    # print(top_ten_gradients)
+    print()
+    for key, value in top_ten_gradients.items():
+        print(key, ": ", value)
     # specificAuditScoreTrend("unused-css-rules", audits)
     # auditScorevsTime(audits)
 
