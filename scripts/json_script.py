@@ -256,7 +256,8 @@ def overallMetricAnalysis (audits, metric):
             if 'score' in value2:
                 scores[key2].append(value2['score'])
             else:
-                print(key)
+                # print(key)
+                pass
 
     # print(len(scores['preload-lcp-image']))
     for key, value in audits.items():
@@ -269,6 +270,8 @@ def overallMetricAnalysis (audits, metric):
                     + " numeric Values", 'effect of different diagnostics on ' + metric)
                 
                 gradient = gradientCalculator(scores[key2], numericValues)
+                print(gradient)
+                print()
                 
             except:
                 # print('here')
@@ -281,7 +284,9 @@ def overallMetricAnalysis (audits, metric):
     # print(scores)
 
 def gradientCalculator (x,y):
-    print(x,y)
+    # x = np.array(x)
+    y = np.array(y)
+    return np.gradient(y)
 
 
 
