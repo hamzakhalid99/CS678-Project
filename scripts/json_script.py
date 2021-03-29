@@ -241,9 +241,11 @@ def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     # plt.savefig(name)
     # plt.show()
 
-def overallMetricAnalysis (audits, metric):
+def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
     scores = {}
     numericValues = []
+    gradients = {}
+    top_n_gradients = {}
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             if 'score' in value2:
@@ -256,29 +258,65 @@ def overallMetricAnalysis (audits, metric):
             if 'score' in value2:
                 scores[key2].append(value2['score'])
             else:
-                print(key)
+                pass
 
     # print(len(scores['preload-lcp-image']))
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             # if len(numericValues) != len(scores[key2]):
-            #     print(key2, key)
+            # print(key2)
             # print()
             try:
-                plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric + " numeric Values", 'effect of different diagnostics on ' + metric, key2)
+                plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
+                    + " numeric Values", 'effect of different diagnostics on ' + metric)
+                
+                gradients = gradientCalculator(gradients, key2, scores[key2], numericValues)
+                
+                
             except:
+                # print('here')
                 pass
                 # print(key2, key)
             # pass
     # plt.legend()
-    plt.show()
-    plt.savefig('plot')
+    # plt.show()
+    plt.savefig('plot_overall')
     # print(scores)
+    # print(gradients)
+
+    gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by values
+    # print(gradients)
+    top_n_counter = 0
+    for key, value in gradients.items():
+        if top_n_counter > top_n:
+            return top_n_gradients
+        else:
+            top_n_gradients[key] = value
+            top_n_counter += 1
+
+    return top_n_gradients
+
+def gradientCalculator (dictionary, metric, x,y):
+    x = np.array(x)
+    y = np.array(y)
+    gradient, _ = np.polyfit(x, y, 1)
+    dictionary[metric] = gradient
+    return dictionary
+
 if __name__ == "__main__":
     audits = makeAuditList()        
     # performanceMetricAnalysis (audits, 'unused-javascript', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "first-contentful-paint")
-    overallMetricAnalysis(audits, 'largest-contentful-paint')
+    top_ten_gradients = overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
+    # print(top_ten_gradients)
+    print()
+    for key, value in top_ten_gradients.items():
+        print(key, ": ", value)
     # specificAuditScoreTrend("unused-css-rules", audits)
     # auditScorevsTime(audits)
+
+
+# top 10 steepest negative gradient: 
+
+# {'legacy-javascript': -14043.578622601302, 'largest-contentful-paint': -11221.938893915014, 'uses-rel-preload': -8842.824150138487, 'uses-text-compression': -8828.938928514646, 'uses-rel-preconnect': -8315.192135421938, 'speed-index': -8053.583359710491, 'first-cpu-idle': -7681.1980949724275, 'interactive': -7615.4962044971535, 'first-contentful-paint': -7516.682157360925, 'first-meaningful-paint': -7338.075874881044, 'uses-responsive-images': -6131.695812780516}
