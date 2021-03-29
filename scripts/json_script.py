@@ -57,7 +57,16 @@ def makeAuditList ():
                                 }})
                                 
                 elif value["scoreDisplayMode"] == "binary":
-                    if "numericValue" in value:
+                    if 'details' in value:
+                        if 'numericValue' in value and 'overallSavingsMs' in value['details']:
+                            audit_obj[file_name]['binary_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "numericValue": value["numericValue"],
+                                        "numericUnit": value["numericUnit"],
+                                        'overallSavingsMs': value['details']['overallSavingsMs']
+                                    }})
+                    elif "numericValue" in value:
                         audit_obj[file_name]['binary_score_audits'].update({\
                                 value["id"]: {
                                     "score": value["score"],
@@ -239,7 +248,25 @@ def overallBinaryMetricAnalysis (audits, metric):
     performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
     print(scores, numericValues)
 
+
+
+
+
+def getDataForMetric (audits, metric):
+    data = {}
+
+    for website, websiteData in audits.items():
+        for dataType, dataTypeData in websiteData.items():
+            for metricInJson, metricInJsonData in dataTypeData.items():
+                if metricInJson == metric:
+                    if metricInJsonData['score'] is not None:
+                        data[website] = metricInJsonData['overallSavingsMs']
+                    if metricInJsonData['score'] is None:
+                        data[website] = 0
+    return data
 if __name__ == "__main__":
+    # audits = makeAuditList()
+    # readWriteJson('audits.json', 'w', audits)
     audits = readWriteJson('audits.json', 'r', None)
     performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
 
@@ -251,17 +278,18 @@ if __name__ == "__main__":
 
 
 
-
-
+    #SERVER RESPONSE TIME
+    # data = getDataForMetric(audits, 'server-response-time')
+    # readWriteJson('server-response-times.json', 'w', data)
 
     
         # CODE TO MAKE BAR PLOTS AND JSON FILES OF GRADIENTS
 
-    for analysisMetric in performanceScoreMakers:
-        top_ten_gradients = overallNumericMetricAnalysis(audits, analysisMetric, 10)
-        # print("keys:", top_ten_gradients.keys())
-        barPlot(top_ten_gradients, analysisMetric)
-        readWriteJson('Top10-' + analysisMetric + '.json', 'w', top_ten_gradients)
+    # for analysisMetric in performanceScoreMakers:
+    #     top_ten_gradients = overallNumericMetricAnalysis(audits, analysisMetric, 10)
+    #     # print("keys:", top_ten_gradients.keys())
+    #     barPlot(top_ten_gradients, analysisMetric)
+    #     readWriteJson('Top10-' + analysisMetric + '.json', 'w', top_ten_gradients)
 
     
 
