@@ -165,15 +165,15 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             try:
-                plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
-                    + " numeric Values", 'effect of different diagnostics on ' + metric)
+                # plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
+                #     + " numeric Values", 'effect of different diagnostics on ' + metric)
             # print('here')
                 gradients = gradientCalculator(gradients, key2, scores[key2], numericValues)                
             except:
                 pass
-    plt.savefig('plot_overall')
-    print(scores)
-    print(numericValues)
+    # plt.savefig('plot_overall')
+    # print(scores)
+    # print(numericValues)
 
     gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by values
     # print(gradients)
@@ -194,20 +194,48 @@ def gradientCalculator (dictionary, metric, x,y):
     dictionary[metric] = gradient
     return dictionary
 
+
+def readWriteJson (file_name, mode, fileToWrite):
+    with open (file_name, mode) as json_file:
+        if mode == 'r':
+            return json.load(json_file)
+        elif mode == 'w':
+            json.dump(fileToWrite, json_file)
+
+def barPlot (gradients, figName):
+    x_axis = []
+    y_axis = []
+    for key, value in gradients.items():
+        x_axis.append(key)
+        y_axis.append(value)
+
+    plt.figure(figsize=(20, 3))
+    # ax = fig.add_axes([0,0,1,1])
+    plt.bar(x_axis, y_axis)
+    # ax.bar(x_axis, y_axis)
+    plt.xlabel('Metrics')
+    plt.ylabel('gradients')
+    # plt.show()
+    plt.savefig(figName)
+
+
 if __name__ == "__main__":
-    audits = makeAuditList()        
+    audits = readWriteJson('audits.json', 'r', None)
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    # analysisMetric = 'first-contentful-paint'
+    for analysisMetric in performanceScoreMakers:
+        top_ten_gradients = overallMetricAnalysis(audits, analysisMetric, 10)
+        # print("keys:", top_ten_gradients.keys())
+        barPlot(top_ten_gradients, analysisMetric)
+        readWriteJson('Top10-' + analysisMetric + '.json', 'w', top_ten_gradients)
+
+
+    # print(top_ten_gradients)
+    # specificAuditScoreTrend("unused-css-rules", audits)
+    # auditScorevsTime(audits)
     # performanceMetricAnalysis (audits, 'unused-javascript', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "first-contentful-paint")
-    top_ten_gradients = overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
-    # print(top_ten_gradients)
-    print()
-    for key, value in top_ten_gradients.items():
-        print(key, ": ", value)
-    # specificAuditScoreTrend("unused-css-rules", audits)
-    # auditScorevsTime(audits)
-
-
 # top 10 steepest negative gradient: 
 
 # {'legacy-javascript': -14043.578622601302, 'largest-contentful-paint': -11221.938893915014, 'uses-rel-preload': -8842.824150138487, 'uses-text-compression': -8828.938928514646, 'uses-rel-preconnect': -8315.192135421938, 'speed-index': -8053.583359710491, 'first-cpu-idle': -7681.1980949724275, 'interactive': -7615.4962044971535, 'first-contentful-paint': -7516.682157360925, 'first-meaningful-paint': -7338.075874881044, 'uses-responsive-images': -6131.695812780516}
