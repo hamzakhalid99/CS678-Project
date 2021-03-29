@@ -284,9 +284,10 @@ def overallMetricAnalysis (audits, metric):
     # print(scores)
 
 def gradientCalculator (x,y):
-    # x = np.array(x)
+    x = np.array(x)
     y = np.array(y)
-    return np.gradient(y)
+    gradient, _ = np.polyfit(x, y, 1)
+    return gradient
 
 
 
