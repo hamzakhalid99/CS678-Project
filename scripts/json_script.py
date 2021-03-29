@@ -270,7 +270,7 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
                 plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
                     + " numeric Values", 'effect of different diagnostics on ' + metric)
                 
-                gradients[key2] = gradientCalculator(scores[key2], numericValues)
+                gradients = gradientCalculator(gradients, key2, scores[key2], numericValues)
                 
                 
             except:
@@ -296,11 +296,12 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
 
     return top_n_gradients
 
-def gradientCalculator (x,y):
+def gradientCalculator (dictionary, metric, x,y):
     x = np.array(x)
     y = np.array(y)
     gradient, _ = np.polyfit(x, y, 1)
-    return gradient
+    dictionary[metric] = gradient
+    return dictionary
 
 if __name__ == "__main__":
     audits = makeAuditList()        
@@ -312,3 +313,8 @@ if __name__ == "__main__":
     print(top_ten_gradients)
     # specificAuditScoreTrend("unused-css-rules", audits)
     # auditScorevsTime(audits)
+
+
+# top 10 steepest negative gradient: 
+
+# {'legacy-javascript': -14043.578622601302, 'largest-contentful-paint': -11221.938893915014, 'uses-rel-preload': -8842.824150138487, 'uses-text-compression': -8828.938928514646, 'uses-rel-preconnect': -8315.192135421938, 'speed-index': -8053.583359710491, 'first-cpu-idle': -7681.1980949724275, 'interactive': -7615.4962044971535, 'first-contentful-paint': -7516.682157360925, 'first-meaningful-paint': -7338.075874881044, 'uses-responsive-images': -6131.695812780516}
