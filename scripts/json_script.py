@@ -241,7 +241,7 @@ def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     # plt.savefig(name)
     # plt.show()
 
-def overallMetricAnalysis (audits, metric):
+def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
     scores = {}
     numericValues = []
     for key, value in audits.items():
@@ -270,8 +270,7 @@ def overallMetricAnalysis (audits, metric):
                     + " numeric Values", 'effect of different diagnostics on ' + metric)
                 
                 gradient = gradientCalculator(scores[key2], numericValues)
-                print(gradient)
-                print()
+                
                 
             except:
                 # print('here')
@@ -298,6 +297,6 @@ if __name__ == "__main__":
     # performanceMetricAnalysis (audits, 'unused-css-rules', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "first-contentful-paint")
     # print(audits)
-    overallMetricAnalysis(audits, 'largest-contentful-paint')
+    top_ten_gradients = overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
     # specificAuditScoreTrend("unused-css-rules", audits)
     # auditScorevsTime(audits)
