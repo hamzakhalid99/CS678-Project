@@ -244,6 +244,8 @@ def plotGraph (x, y, title_, xlabel_, ylabel_, name):
 def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
     scores = {}
     numericValues = []
+    gradients = {}
+    top_n_gradients = {}
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             if 'score' in value2:
@@ -256,20 +258,19 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
             if 'score' in value2:
                 scores[key2].append(value2['score'])
             else:
-                # print(key)
                 pass
 
     # print(len(scores['preload-lcp-image']))
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             # if len(numericValues) != len(scores[key2]):
-            #     print(key2, key)
+            # print(key2)
             # print()
             try:
                 plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
                     + " numeric Values", 'effect of different diagnostics on ' + metric)
                 
-                gradient = gradientCalculator(scores[key2], numericValues)
+                gradients[key2] = gradientCalculator(scores[key2], numericValues)
                 
                 
             except:
@@ -281,15 +282,25 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
     # plt.show()
     plt.savefig('plot_overall')
     # print(scores)
+    # print(gradients)
+
+    gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by values
+    # print(gradients)
+    top_n_counter = 0
+    for key, value in gradients.items():
+        if top_n_counter > top_n:
+            return top_n_gradients
+        else:
+            top_n_gradients[key] = value
+            top_n_counter += 1
+
+    return top_n_gradients
 
 def gradientCalculator (x,y):
     x = np.array(x)
     y = np.array(y)
     gradient, _ = np.polyfit(x, y, 1)
     return gradient
-
-
-
 
 if __name__ == "__main__":
     audits = makeAuditList()        
@@ -298,5 +309,6 @@ if __name__ == "__main__":
     # performanceMetricAnalysis (audits, 'unused-css-rules', "first-contentful-paint")
     # print(audits)
     top_ten_gradients = overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
+    print(top_ten_gradients)
     # specificAuditScoreTrend("unused-css-rules", audits)
     # auditScorevsTime(audits)
