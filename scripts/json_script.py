@@ -7,6 +7,9 @@ import pprint
 import numpy as np
 
 def makeAuditList ():
+    '''
+    MAKES THE AUDIT DICTIONARY
+    '''
     audit_obj = {}
     for file_name in os.listdir("../data/json_files"):
         file_name = file_name[:-5].lower()
@@ -140,15 +143,15 @@ def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     # plt.savefig(name)
     # plt.show()
 
-def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
+
+def scoreList_MetricNumericVals (auditName, metric, numeric_or_binary):
     scores = {}
     numericValues = []
-    gradients = {}
-    top_n_gradients = {}
+    
     performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
     for websites, websiteData in audits.items():
         for valueTypes, valueData in websiteData.items():
-            if valueTypes == 'numeric_score_audits' or valueTypes == 'binary_score_audits':
+            if valueTypes == 'numeric_score_audits' or valueTypes == numeric_or_binary +'_score_audits':
                 for metricInJson, metricData in valueData.items():
                     if 'score' in metricData and valueData not in performanceScoreMakers:
                         scores[metricInJson] = []
@@ -157,39 +160,32 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
 
     
     for key, value in audits.items():
-        for key2, value2 in value['binary_score_audits'].items():
+        for key2, value2 in value[numeric_or_binary + '_score_audits'].items():
             if 'score' in value2 and key2 not in performanceScoreMakers:
                 scores[key2].append(value2['score'])
             else:
                 pass
+    return scores, numericValues
 
-    print(scores)
-    '''
-    FINDING PLOTS AND GRADIENTS FOR NUMERIC SCORES
-    
 
-    for key, value in audits.items():
-        for key2, value2 in value['numeric_score_audits'].items():
-            if 'score' in value2 and key2 not in performanceScoreMakers:
-                scores[key2].append(value2['score'])
-            else:
-                pass
+    # FINDING PLOTS AND GRADIENTS FOR NUMERIC SCORES AND DATA FOR GRADIENTS
+def overallNumericMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
+    scores, numericValues = scoreList_MetricNumericVals(audits, metric, 'numeric')
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    # print(scores, numericValues)
+    gradients = {}
+    top_n_gradients = {}
 
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             try:
                 # plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
-                #     + " numeric Values", 'effect of different diagnostics on ' + metric)
-            # print('here')
+                    # + " numeric Values", 'effect of different diagnostics on ' + metric)
                 gradients = gradientCalculator(gradients, key2, scores[key2], numericValues)                
             except:
                 pass
     # plt.savefig('plot_overall')
-    # print(scores)
-    # print(numericValues)
-
-    gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by values
-    # print(gradients)
+    gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by value
     top_n_counter = 0
     for key, value in gradients.items():
         if top_n_counter > top_n:
@@ -198,7 +194,6 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
             top_n_gradients[key] = value
             top_n_counter += 1
     return top_n_gradients
-    '''
 
 
 def gradientCalculator (dictionary, metric, x,y):
@@ -228,33 +223,47 @@ def barPlot (gradients, figName):
         x_axis.append(key)
         y_axis.append(value)
 
-    plt.figure(figsize=(20, 3))
+    plt.figure(figsize=(20, 6))
     # ax = fig.add_axes([0,0,1,1])
     plt.bar(x_axis, y_axis)
     # ax.bar(x_axis, y_axis)
     plt.xlabel('Metrics')
-    plt.ylabel('gradients')
+    plt.ylabel('gradients (Time Savings in Ms (numeric value) / score)')
+    plt.title('Top 10 metrics ranked according to gradients (Time Savings in Ms (numeric value) / score) for the performance metric ' + figName)
     # plt.show()
     plt.savefig(figName)
 
+
+def overallBinaryMetricAnalysis (audits, metric): 
+    scores, numericValues = scoreList_MetricNumericVals(audits, metric, 'numeric')
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    print(scores, numericValues)
 
 if __name__ == "__main__":
     audits = readWriteJson('audits.json', 'r', None)
     performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
 
-    overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
-
+    '''
+        BINARY METRIC ANALYSIS
 
     '''
-        CODE TO MAKE BAR PLOTS AND JSON FILES OF GRADIENTS
+    # overallBinaryMetricAnalysis(audits, 'largest-contentful-paint')
+
+
+
+
+
+
+    
+        # CODE TO MAKE BAR PLOTS AND JSON FILES OF GRADIENTS
 
     for analysisMetric in performanceScoreMakers:
-        top_ten_gradients = overallMetricAnalysis(audits, analysisMetric, 10)
+        top_ten_gradients = overallNumericMetricAnalysis(audits, analysisMetric, 10)
         # print("keys:", top_ten_gradients.keys())
         barPlot(top_ten_gradients, analysisMetric)
         readWriteJson('Top10-' + analysisMetric + '.json', 'w', top_ten_gradients)
 
-    '''
+    
 
 
 
