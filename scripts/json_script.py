@@ -268,6 +268,8 @@ def overallMetricAnalysis (audits, metric):
                 plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
                     + " numeric Values", 'effect of different diagnostics on ' + metric)
                 
+                gradient = gradientCalculator(scores[key2], numericValues)
+                
             except:
                 # print('here')
                 pass
@@ -277,6 +279,13 @@ def overallMetricAnalysis (audits, metric):
     # plt.show()
     plt.savefig('plot_overall')
     # print(scores)
+
+def gradientCalculator (x,y):
+    print(x,y)
+
+
+
+
 if __name__ == "__main__":
     audits = makeAuditList()        
     # performanceMetricAnalysis (audits, 'unused-javascript', "largest-contentful-paint")
