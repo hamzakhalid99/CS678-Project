@@ -155,6 +155,19 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
                     if metricInJson == metric:
                         numericValues.append(metricData['numericValue'])
 
+    
+    for key, value in audits.items():
+        for key2, value2 in value['binary_score_audits'].items():
+            if 'score' in value2 and key2 not in performanceScoreMakers:
+                scores[key2].append(value2['score'])
+            else:
+                pass
+
+    print(scores)
+    '''
+    FINDING PLOTS AND GRADIENTS FOR NUMERIC SCORES
+    
+
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             if 'score' in value2 and key2 not in performanceScoreMakers:
@@ -184,8 +197,9 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
         else:
             top_n_gradients[key] = value
             top_n_counter += 1
-
     return top_n_gradients
+    '''
+
 
 def gradientCalculator (dictionary, metric, x,y):
     x = np.array(x)
@@ -196,6 +210,11 @@ def gradientCalculator (dictionary, metric, x,y):
 
 
 def readWriteJson (file_name, mode, fileToWrite):
+    '''
+    FILE_NAME: FILE TO OPEN TO READ, OR TO WRITE TO
+    FILETOWRITE: ONLY USED WHEN WRITING, WHEN READING IT MUST BE NONE
+    MODE: W OR R
+    '''
     with open (file_name, mode) as json_file:
         if mode == 'r':
             return json.load(json_file)
@@ -222,12 +241,22 @@ def barPlot (gradients, figName):
 if __name__ == "__main__":
     audits = readWriteJson('audits.json', 'r', None)
     performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
-    # analysisMetric = 'first-contentful-paint'
+
+    overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
+
+
+    '''
+        CODE TO MAKE BAR PLOTS AND JSON FILES OF GRADIENTS
+
     for analysisMetric in performanceScoreMakers:
         top_ten_gradients = overallMetricAnalysis(audits, analysisMetric, 10)
         # print("keys:", top_ten_gradients.keys())
         barPlot(top_ten_gradients, analysisMetric)
         readWriteJson('Top10-' + analysisMetric + '.json', 'w', top_ten_gradients)
+
+    '''
+
+
 
 
     # print(top_ten_gradients)
