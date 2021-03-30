@@ -255,9 +255,9 @@ def imageAnalysis (audits, metric):
     y_axis = lists_values
 
     rgb = (random.random(), random.random(), random.random())
-    plt.plot(x, m*x + b, c=rgb)
-    plt.title(title_)
-    plt.xlabel(xlabel_)
+    plt.plot(x_axis, y_axis, c=rgb)
+    plt.title("percentage effect of off-screen images on top n websites")
+    plt.xlabel("Rank of wesbite")
     # plt.set_label(legend_)
     plt.ylabel(ylabel_)
 
