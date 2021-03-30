@@ -261,7 +261,7 @@ def imageAnalysis (audits, metric):
     # plt.set_label(legend_)
     plt.ylabel("percentage impact")
 
-
+    plt.show()
     return percent_impact
 
 def overallBinaryMetricAnalysis (audits, metric): 
