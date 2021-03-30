@@ -6,73 +6,10 @@ import random
 import pprint
 import numpy as np
 
-'''
-{
-    "Website": {
-        "numeric": {
-            "unused-javascript": {
-                "score": 0.3, "overallsaving": 0.3
-            },
-            ......
-        },
-        "binary": {
-    
-        },
-        "null": [] -> {}
-    }
-}
-'''
-
-
-
-#not being used
-def greatestImpact(audits, metricOne, metricTwo):
-    # print(audits)
-    impact = {}
-    for website, scores_dict in audits.items(): #scores_dict is the dictionary of scores.
-        numeric_scores = scores_dict["numeric_score_audits"]
-        binary_scores = scores_dict["binary_score_audits"]
-        null_scores = scores_dict["null_score_audits"]
-        impact[website] = {} 
-        for  metric, details in numeric_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
-            try:
-                impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
-            except:
-                pass
-        for  metric, details in binary_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
-            # print("here", metric)
-            try:
-                impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
-            except:
-                pass
-        for  metric, details in null_scores.items(): #metric is what is being scored (e.g. unused-javascript), while details include scoring detailsm overall savings etc. 
-            try:
-                impact[website][metric] = [details["score"], details["overallSavingsMs"], details["numericValue"], details["numericUnit"]]   #format: website -> [score, savings]
-            except:
-                pass
-    # print(impact["20-netflix.com"]["unused-javascript"])
-    
-    metricOneValues = []
-    metricTwoValues = []
-
-    for website, metric in impact.items():
-        # print (metric)
-        for key, val in metric.items():
-            if key == metricOne:
-                metricOneValues.append(impact[website][key][2])
-
-            elif key == metricTwo:
-                metricTwoValues.append(impact[website][key][2])
-    
-    # print (metricOneValues, metricTwoValues)
-
-    y_axis = list(range(1,len(metricOneValues)+1))
-
-    plotGraph (y_axis, metricOneValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
-    plotGraph (y_axis, metricTwoValues, metricOne+" vs "+metricTwo, "Rank of website", "Average savings", metricOne+"_vs_"+metricTwo)
-    # plt.show()
-
 def makeAuditList ():
+    '''
+    MAKES THE AUDIT DICTIONARY
+    '''
     audit_obj = {}
     for file_name in os.listdir("../data/json_files"):
         file_name = file_name[:-5].lower()
@@ -83,14 +20,10 @@ def makeAuditList ():
         }
     for file_name in sorted(os.listdir("../data/json_files"), key=lambda x: int(x.partition('-')[0])):
         with open("../data/json_files/" + file_name) as json_file:
-            # file_name = file_name.split('.')[0].lower()
             file_name = file_name[:-5].lower()
             json_file_obj = json.load(json_file)
             audits = json_file_obj["audits"]
-            # print(audits['largest-contentful-paint'])
             for key, value in audits.items():
-                # if key == 'largest-contentful-paint':
-                #     print(file_name)
                 if value["scoreDisplayMode"] == "numeric":
                     if "details" in value and "numericValue" in value:
                         if "overallSavingsMs" in value["details"]:
@@ -153,24 +86,15 @@ def makeAuditList ():
                                 }})
     return audit_obj
 
-
-
 def auditScorevsTime (audits):
     for key, value in audits.items():
         scorePoints = []
         savingsPoints = []
-        # i = 0
-        # if i < 10:
         for key2, value2 in value['numeric_score_audits'].items():
             if "overallSavingsMs" in value2:
                 scorePoints.append(value2['score'])
                 savingsPoints.append(value2['overallSavingsMs'])
-        # else:
-        #     break
-        # break
-        # i += 1
     plotGraph(scorePoints, savingsPoints, 'Score vs time_savings', 'score', 'potential saved time in ms', 'score-vs-overallSavingsMs')
-    # plt.show()
 
 def specificAuditScoreTrend (auditName, audits):
     scorePoints = []
@@ -183,30 +107,6 @@ def specificAuditScoreTrend (auditName, audits):
     for i in range(0, count):
         x.append(i+1)
     plotGraph(x, scorePoints, "Ranking-vs-" + auditName, "Ranking", "Score: " + auditName, "ranking-vs-" + auditName)
-
-
-
-#not being used
-def readFile (fileName, websiteType, audits):
-    filtered = {
-        'e': [],
-        'v': [],
-        's': []
-    }
-    with open(fileName, 'r') as fileObj:
-        fileObj = csv.reader(fileObj)
-        i = 0
-        for row in fileObj:
-            if i < 200:
-                if row[2] == 'e':
-                    filtered['e'].append(row[0] + '-' + row[1])
-                elif row[2] == 'v':
-                    filtered['v'].append(row[0] + '-' + row[1])
-                elif row[2] == 's':
-                    filtered['s'].append(row[0] + '-' + row[1])
-            i += 1
-        return filtered
-
 
 def performanceMetricAnalysis (audits, metricOne, metricTwo):
     metricOneNumericVals = []
@@ -241,51 +141,48 @@ def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     # plt.savefig(name)
     # plt.show()
 
-def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
+def scoreList_MetricNumericVals (auditName, metric, numeric_or_binary):
     scores = {}
     numericValues = []
-    gradients = {}
-    top_n_gradients = {}
-    for key, value in audits.items():
-        for key2, value2 in value['numeric_score_audits'].items():
-            if 'score' in value2:
-                scores[key2] = []
-            if key2 == metric:
-                numericValues.append(value2['numericValue'])
+    
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    for websites, websiteData in audits.items():
+        for valueTypes, valueData in websiteData.items():
+            if valueTypes == 'numeric_score_audits' or valueTypes == numeric_or_binary +'_score_audits':
+                for metricInJson, metricData in valueData.items():
+                    if 'score' in metricData and valueData not in performanceScoreMakers:
+                        scores[metricInJson] = []
+                    if metricInJson == metric:
+                        numericValues.append(metricData['numericValue'])
 
+ 
     for key, value in audits.items():
-        for key2, value2 in value['numeric_score_audits'].items():
-            if 'score' in value2:
+        for key2, value2 in value[numeric_or_binary + '_score_audits'].items():
+            if 'score' in value2 and key2 not in performanceScoreMakers:
                 scores[key2].append(value2['score'])
             else:
                 pass
+    return scores, numericValues
 
-    # print(len(scores['preload-lcp-image']))
+
+    # FINDING PLOTS AND GRADIENTS FOR NUMERIC SCORES AND DATA FOR GRADIENTS
+def overallNumericMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
+    scores, numericValues = scoreList_MetricNumericVals(audits, metric, 'numeric')
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    # print(scores, numericValues)
+    gradients = {}
+    top_n_gradients = {}
+
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
-            # if len(numericValues) != len(scores[key2]):
-            # print(key2)
-            # print()
             try:
-                plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
-                    + " numeric Values", 'effect of different diagnostics on ' + metric)
-                
-                gradients = gradientCalculator(gradients, key2, scores[key2], numericValues)
-                
-                
+                # plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
+                    # + " numeric Values", 'effect of different diagnostics on ' + metric)
+                gradients = gradientCalculator(gradients, key2, scores[key2], numericValues)                
             except:
-                # print('here')
                 pass
-                # print(key2, key)
-            # pass
-    # plt.legend()
-    # plt.show()
-    plt.savefig('plot_overall')
-    # print(scores)
-    # print(gradients)
-
-    gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by values
-    # print(gradients)
+    # plt.savefig('plot_overall')
+    gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by value
     top_n_counter = 0
     for key, value in gradients.items():
         if top_n_counter > top_n:
@@ -293,8 +190,8 @@ def overallMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gra
         else:
             top_n_gradients[key] = value
             top_n_counter += 1
-
     return top_n_gradients
+
 
 def gradientCalculator (dictionary, metric, x,y):
     x = np.array(x)
@@ -303,20 +200,99 @@ def gradientCalculator (dictionary, metric, x,y):
     dictionary[metric] = gradient
     return dictionary
 
+
+def readWriteJson (file_name, mode, fileToWrite):
+    '''
+    FILE_NAME: FILE TO OPEN TO READ, OR TO WRITE TO
+    FILETOWRITE: ONLY USED WHEN WRITING, WHEN READING IT MUST BE NONE
+    MODE: W OR R
+    '''
+    with open (file_name, mode) as json_file:
+        if mode == 'r':
+            return json.load(json_file)
+        elif mode == 'w':
+            json.dump(fileToWrite, json_file)
+
+def barPlot (gradients, figName):
+    x_axis = []
+    y_axis = []
+    for key, value in gradients.items():
+        x_axis.append(key)
+        y_axis.append(value)
+
+    plt.figure(figsize=(20, 6))
+    # ax = fig.add_axes([0,0,1,1])
+    plt.bar(x_axis, y_axis)
+    # ax.bar(x_axis, y_axis)
+    plt.xlabel('Metrics')
+    plt.ylabel('gradients (Time Savings in Ms (numeric value) / score)')
+    plt.title('Top 10 metrics ranked according to gradients (Time Savings in Ms (numeric value) / score) for the performance metric ' + figName)
+    # plt.show()
+    plt.savefig(figName)
+
+def imageAnalysis (audits, metric):
+    #implemented for metric: offscreen-images
+    overall_savings = {}
+    time_to_interactive = {}
+    percent_impact = {}
+    for key, value in audits.items():
+        for key2, value2 in value['numeric_score_audits'].items():
+            if key2 == 'offscreen-images':
+                overall_savings[key]= value2['overallSavingsMs']
+                # return
+            elif key2 == 'interactive':
+                time_to_interactive[key] = value2['numericValue']
+                # break
+    
+    for key, value in time_to_interactive.items():
+        difference = time_to_interactive[key] - overall_savings[key]     #new time after fixing this metric
+        percentage_difference = ((time_to_interactive[key] / difference) * 100) - 100  # (old/new)*100 -> shows the percentage impact of this metric
+        percent_impact[key] = percentage_difference
+
+    print(percent_impact)
+
+def overallBinaryMetricAnalysis (audits, metric): 
+    scores, numericValues = scoreList_MetricNumericVals(audits, metric, 'numeric')
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    print(scores, numericValues)
+
 if __name__ == "__main__":
-    audits = makeAuditList()        
+    audits = readWriteJson('audits.json', 'r', None)
+    # performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+
+    imageAnalysis(audits, 'offscreen-images')
+    
+    '''
+        BINARY METRIC ANALYSIS
+
+    '''
+    # overallBinaryMetricAnalysis(audits, 'largest-contentful-paint')
+
+
+
+
+
+
+    
+        # CODE TO MAKE BAR PLOTS AND JSON FILES OF GRADIENTS
+
+    # for analysisMetric in performanceScoreMakers:
+    #     top_ten_gradients = overallNumericMetricAnalysis(audits, analysisMetric, 10)
+    #     # print("keys:", top_ten_gradients.keys())
+    #     barPlot(top_ten_gradients, analysisMetric)
+    #     readWriteJson('Top10-' + analysisMetric + '.json', 'w', top_ten_gradients)
+
+    
+
+
+
+
+    # print(top_ten_gradients)
+    # specificAuditScoreTrend("unused-css-rules", audits)
+    # auditScorevsTime(audits)
     # performanceMetricAnalysis (audits, 'unused-javascript', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "largest-contentful-paint")
     # performanceMetricAnalysis (audits, 'unused-css-rules', "first-contentful-paint")
-    top_ten_gradients = overallMetricAnalysis(audits, 'largest-contentful-paint', 10)
-    # print(top_ten_gradients)
-    print()
-    for key, value in top_ten_gradients.items():
-        print(key, ": ", value)
-    # specificAuditScoreTrend("unused-css-rules", audits)
-    # auditScorevsTime(audits)
-
-
 # top 10 steepest negative gradient: 
 
 # {'legacy-javascript': -14043.578622601302, 'largest-contentful-paint': -11221.938893915014, 'uses-rel-preload': -8842.824150138487, 'uses-text-compression': -8828.938928514646, 'uses-rel-preconnect': -8315.192135421938, 'speed-index': -8053.583359710491, 'first-cpu-idle': -7681.1980949724275, 'interactive': -7615.4962044971535, 'first-contentful-paint': -7516.682157360925, 'first-meaningful-paint': -7338.075874881044, 'uses-responsive-images': -6131.695812780516}
