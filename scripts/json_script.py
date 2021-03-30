@@ -247,7 +247,7 @@ def imageAnalysis (audits, metric):
     
     for key, value in time_to_interactive.items():
         difference = time_to_interactive[key] - overall_savings[key]     #new time after fixing this metric
-        percentage_difference = ((time_to_interactive[key] / difference) * 100) - 100  # (old/new)*100 -> shows the percentage impact of this metric
+        percentage_difference = 100 - ((difference / time_to_interactive[key]) * 100)  # 100 -(new/old)*100 -> shows the percentage impact of this metric
         percent_impact[key] = percentage_difference
         lists_values.append(percentage_difference)
     
