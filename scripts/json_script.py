@@ -259,7 +259,7 @@ def imageAnalysis (audits, metric):
     plt.title("percentage effect of off-screen images on top n websites")
     plt.xlabel("Rank of wesbite")
     # plt.set_label(legend_)
-    plt.ylabel(ylabel_)
+    plt.ylabel("percentage impact")
 
 
     return percent_impact
