@@ -235,6 +235,7 @@ def imageAnalysis (audits, metric):
     overall_savings = {}
     time_to_interactive = {}
     percent_impact = {}
+    lists_values = []
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             if key2 == 'offscreen-images':
@@ -248,8 +249,20 @@ def imageAnalysis (audits, metric):
         difference = time_to_interactive[key] - overall_savings[key]     #new time after fixing this metric
         percentage_difference = ((time_to_interactive[key] / difference) * 100) - 100  # (old/new)*100 -> shows the percentage impact of this metric
         percent_impact[key] = percentage_difference
+        lists_values = percentage_difference
+    
+    x_axis = list(range(1, 51))
+    y_axis = lists_values
 
-    print(percent_impact)
+    rgb = (random.random(), random.random(), random.random())
+    plt.plot(x, m*x + b, c=rgb)
+    plt.title(title_)
+    plt.xlabel(xlabel_)
+    # plt.set_label(legend_)
+    plt.ylabel(ylabel_)
+
+
+    return percent_impact
 
 def overallBinaryMetricAnalysis (audits, metric): 
     scores, numericValues = scoreList_MetricNumericVals(audits, metric, 'numeric')
