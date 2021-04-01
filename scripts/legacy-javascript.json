@@ -1,0 +1,262 @@
+{
+    "15-weibo.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "14-zoom.us": {
+        "overallSavingsMs": 150,
+        "score": 0.88,
+        "numericValue": 150,
+        "numericUnit": "millisecond"
+    },
+    "44-huanqiu.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "09-360.cn": {},
+    "18-live.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "16-sina.com.cn": {
+        "overallSavingsMs": 870,
+        "score": 0.49,
+        "numericValue": 870,
+        "numericUnit": "millisecond"
+    },
+    "02-youtube.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "35-bing.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "17-xinhuanet.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "21-microsoft.com": {
+        "overallSavingsMs": 790,
+        "score": 0.5,
+        "numericValue": 790,
+        "numericUnit": "millisecond"
+    },
+    "47-apple.com": {
+        "overallSavingsMs": 360,
+        "score": 0.72,
+        "numericValue": 360,
+        "numericUnit": "millisecond"
+    },
+    "36-twitch.tv": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "28-vk.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "01-google.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "38-aliexpress.com": {
+        "overallSavingsMs": 150,
+        "score": 0.88,
+        "numericValue": 150,
+        "numericUnit": "millisecond"
+    },
+    "39-adobe.com": {
+        "overallSavingsMs": 160,
+        "score": 0.87,
+        "numericValue": 160,
+        "numericUnit": "millisecond"
+    },
+    "10-amazon.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "23-zhanqi.tv": {},
+    "11-yahoo.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "06-sohu.com": {
+        "overallSavingsMs": 180,
+        "score": 0.85,
+        "numericValue": 180,
+        "numericUnit": "millisecond"
+    },
+    "48-chaturbate.com": {},
+    "37-naver.com": {
+        "overallSavingsMs": 340,
+        "score": 0.73,
+        "numericValue": 340,
+        "numericUnit": "millisecond"
+    },
+    "29-csdn.net": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "26-office.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "41-amazon.in": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "42-twitter.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "08-taobao.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "49-aparat.com": {
+        "overallSavingsMs": 150,
+        "score": 0.88,
+        "numericValue": 150,
+        "numericUnit": "millisecond"
+    },
+    "43-amazon.co.jp": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "19-reddit.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "30-myshopify.com": {},
+    "50-yandex.ru": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "33-google.com.hk": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "27-instagram.com": {},
+    "46-yy.com": {},
+    "24-okezone.com": {
+        "overallSavingsMs": 90,
+        "score": 0.93,
+        "numericValue": 90,
+        "numericUnit": "millisecond"
+    },
+    "31-yahoo.co.jp": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "32-microsoftonline.com": {},
+    "13-wikipedia.org": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "22-panda.tv": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "04-baidu.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "03-tmall.com": {
+        "overallSavingsMs": 150,
+        "score": 0.88,
+        "numericValue": 150,
+        "numericUnit": "millisecond"
+    },
+    "07-facebook.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "20-netflix.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "12-jd.com": {
+        "overallSavingsMs": 420,
+        "score": 0.68,
+        "numericValue": 420,
+        "numericUnit": "millisecond"
+    },
+    "34-bongacams.com": {},
+    "25-alipay.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "45-tianya.cn": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    },
+    "05-qq.com": {
+        "overallSavingsMs": 190,
+        "score": 0.84,
+        "numericValue": 190,
+        "numericUnit": "millisecond"
+    },
+    "40-ebay.com": {
+        "overallSavingsMs": 0,
+        "score": 1,
+        "numericValue": 0,
+        "numericUnit": "millisecond"
+    }
+}
