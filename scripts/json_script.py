@@ -26,7 +26,16 @@ def makeAuditList ():
             for key, value in audits.items():
                 if value["scoreDisplayMode"] == "numeric":
                     if "details" in value and "numericValue" in value:
-                        if "overallSavingsMs" in value["details"]:
+                        if ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsMs": value["details"]["overallSavingsMs"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"],
+                                        "numericValue": value["numericValue"],
+                                        "numericUnit": value["numericUnit"]
+                                    }})
+                        elif ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" not in value["details"]):
                             audit_obj[file_name]['numeric_score_audits'].update({\
                                     value["id"]: {
                                         "score": value["score"],
@@ -34,6 +43,17 @@ def makeAuditList ():
                                         "numericValue": value["numericValue"],
                                         "numericUnit": value["numericUnit"]
                                     }})
+                        
+                        elif ("overallSavingsMs" not in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"],
+                                        "numericValue": value["numericValue"],
+                                        "numericUnit": value["numericUnit"]
+                                    }})
+
+
                     elif "details" in value and "numericValue" not in value:
                         if "overallSavingsMs" in value["details"]:
                             audit_obj[file_name]['numeric_score_audits'].update({\
@@ -256,10 +276,10 @@ def imageAnalysis (audits, metric):
 
     rgb = (random.random(), random.random(), random.random())
     plt.plot(x_axis, y_axis, c=rgb)
-    plt.title("percentage effect of off-screen images on top n websites")
+    plt.title("percentage improvement in PLTs if lazy-loading is implemented")
     plt.xlabel("Rank of wesbite")
     # plt.set_label(legend_)
-    plt.ylabel("percentage impact")
+    plt.ylabel("Improvement Percentage")
 
     plt.show()
     return percent_impact
