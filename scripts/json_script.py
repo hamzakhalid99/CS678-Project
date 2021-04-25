@@ -55,12 +55,28 @@ def makeAuditList ():
 
 
                     elif "details" in value and "numericValue" not in value:
-                        if "overallSavingsMs" in value["details"]:
+                        if ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsMs": value["details"]["overallSavingsMs"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"]
+                                    }})
+                        
+                        elif ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" not in value["details"]):
                             audit_obj[file_name]['numeric_score_audits'].update({\
                                     value["id"]: {
                                         "score": value["score"],
                                         "overallSavingsMs": value["details"]["overallSavingsMs"]
                                     }})
+                        
+                        elif ("overallSavingsMs" not in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"]
+                                    }})
+
 
                     elif "details" not in value and ("numericValue" in value):
                         # print('here')
