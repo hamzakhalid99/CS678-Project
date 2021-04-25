@@ -306,10 +306,15 @@ def overallBinaryMetricAnalysis (audits, metric):
     print(scores, numericValues)
 
 if __name__ == "__main__":
-    audits = readWriteJson('audits.json', 'r', None)
+    audits = makeAuditList()
     # performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
 
-    imageAnalysis(audits, 'offscreen-images')
+    a_file = open("audits.json", "w")
+    json.dump(audits, a_file)
+    a_file.close()
+
+    print(audits)
+    # imageAnalysis(audits, 'offscreen-images')
     
     '''
         BINARY METRIC ANALYSIS
