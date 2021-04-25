@@ -306,7 +306,7 @@ def overallBinaryMetricAnalysis (audits, metric):
     print(scores, numericValues)
 
 if __name__ == "__main__":
-    audits = readWriteJson('audits.json', 'r', None)
+    # audits = readWriteJson('audits.json', 'r', None)
     # performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
 
     imageAnalysis(audits, 'offscreen-images')
