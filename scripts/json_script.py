@@ -26,7 +26,16 @@ def makeAuditList ():
             for key, value in audits.items():
                 if value["scoreDisplayMode"] == "numeric":
                     if "details" in value and "numericValue" in value:
-                        if "overallSavingsMs" in value["details"]:
+                        if ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsMs": value["details"]["overallSavingsMs"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"],
+                                        "numericValue": value["numericValue"],
+                                        "numericUnit": value["numericUnit"]
+                                    }})
+                        elif ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" not in value["details"]):
                             audit_obj[file_name]['numeric_score_audits'].update({\
                                     value["id"]: {
                                         "score": value["score"],
@@ -34,13 +43,40 @@ def makeAuditList ():
                                         "numericValue": value["numericValue"],
                                         "numericUnit": value["numericUnit"]
                                     }})
+                        
+                        elif ("overallSavingsMs" not in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"],
+                                        "numericValue": value["numericValue"],
+                                        "numericUnit": value["numericUnit"]
+                                    }})
+
+
                     elif "details" in value and "numericValue" not in value:
-                        if "overallSavingsMs" in value["details"]:
+                        if ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsMs": value["details"]["overallSavingsMs"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"]
+                                    }})
+                        
+                        elif ("overallSavingsMs" in value["details"]) and ("overallSavingsBytes" not in value["details"]):
                             audit_obj[file_name]['numeric_score_audits'].update({\
                                     value["id"]: {
                                         "score": value["score"],
                                         "overallSavingsMs": value["details"]["overallSavingsMs"]
                                     }})
+                        
+                        elif ("overallSavingsMs" not in value["details"]) and ("overallSavingsBytes" in value["details"]):
+                            audit_obj[file_name]['numeric_score_audits'].update({\
+                                    value["id"]: {
+                                        "score": value["score"],
+                                        "overallSavingsBytes": value["details"]["overallSavingsBytes"]
+                                    }})
+
 
                     elif "details" not in value and ("numericValue" in value):
                         # print('here')
@@ -57,16 +93,7 @@ def makeAuditList ():
                                 }})
                                 
                 elif value["scoreDisplayMode"] == "binary":
-                    if 'details' in value:
-                        if 'numericValue' in value and 'overallSavingsMs' in value['details']:
-                            audit_obj[file_name]['binary_score_audits'].update({\
-                                    value["id"]: {
-                                        "score": value["score"],
-                                        "numericValue": value["numericValue"],
-                                        "numericUnit": value["numericUnit"],
-                                        'overallSavingsMs': value['details']['overallSavingsMs']
-                                    }})
-                    elif "numericValue" in value:
+                    if "numericValue" in value:
                         audit_obj[file_name]['binary_score_audits'].update({\
                                 value["id"]: {
                                     "score": value["score"],
@@ -94,8 +121,6 @@ def makeAuditList ():
                                     "score": value["score"]
                                 }})
     return audit_obj
-
-
 
 def auditScorevsTime (audits):
     for key, value in audits.items():
@@ -152,12 +177,11 @@ def plotGraph (x, y, title_, xlabel_, ylabel_, name):
     # plt.savefig(name)
     # plt.show()
 
-
 def scoreList_MetricNumericVals (auditName, metric, numeric_or_binary):
     scores = {}
     numericValues = []
     
-    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'interactive', 'cummulative-layout-shift']
     for websites, websiteData in audits.items():
         for valueTypes, valueData in websiteData.items():
             if valueTypes == 'numeric_score_audits' or valueTypes == numeric_or_binary +'_score_audits':
@@ -167,7 +191,7 @@ def scoreList_MetricNumericVals (auditName, metric, numeric_or_binary):
                     if metricInJson == metric:
                         numericValues.append(metricData['numericValue'])
 
-    
+ 
     for key, value in audits.items():
         for key2, value2 in value[numeric_or_binary + '_score_audits'].items():
             if 'score' in value2 and key2 not in performanceScoreMakers:
@@ -180,19 +204,35 @@ def scoreList_MetricNumericVals (auditName, metric, numeric_or_binary):
     # FINDING PLOTS AND GRADIENTS FOR NUMERIC SCORES AND DATA FOR GRADIENTS
 def overallNumericMetricAnalysis (audits, metric, top_n): #top_n = top (most steep) gradients to return 
     scores, numericValues = scoreList_MetricNumericVals(audits, metric, 'numeric')
-    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'interactive', 'cummulative-layout-shift']
     # print(scores, numericValues)
     gradients = {}
     top_n_gradients = {}
-
+    counttry = 0
+    countexcept = 0
     for key, value in audits.items():
         for key2, value2 in value['numeric_score_audits'].items():
             try:
+                counttry += 1
                 # plotGraph(scores[key2], numericValues, metric + " numeric Value vs diagnostic results scores", 'score' ,  metric \
                     # + " numeric Values", 'effect of different diagnostics on ' + metric)
-                gradients = gradientCalculator(gradients, key2, scores[key2], numericValues)                
+                x = scores[key2]
+                y = numericValues
+                if len(x) - len(y) == 1:
+                    x = x[:-1]
+
+                elif len(y) - len(x) == 1:
+                    y = y[:-1]
+                print(len(scores[key2]), len(numericValues))
+                gradients = gradientCalculator(gradients, key2, x, y)
+                # if metric == 'largest-contentful-paint':
+                #     print(key2, value2)
             except:
+                countexcept += 1
+                if metric == 'largest-contentful-paint':
+                    print("MRT", len(scores[key2]), len(numericValues))
                 pass
+    print(counttry, countexcept)
     # plt.savefig('plot_overall')
     gradients = dict(sorted(gradients.items(), key=lambda item: item[1])) #sorts dictionary by value
     top_n_counter = 0
@@ -242,44 +282,55 @@ def barPlot (gradients, figName):
     # plt.show()
     plt.savefig(figName)
 
+def imageAnalysis (audits, metric):
+    #implemented for metric: offscreen-images
+    overall_savings = {}
+    time_to_interactive = {}
+    percent_impact = {}
+    lists_values = []
+    for key, value in audits.items():
+        for key2, value2 in value['numeric_score_audits'].items():
+            if key2 == 'offscreen-images':
+                overall_savings[key]= value2['overallSavingsMs']
+                # return
+            elif key2 == 'interactive':
+                time_to_interactive[key] = value2['numericValue']
+                # break
+    
+    for key, value in time_to_interactive.items():
+        difference = time_to_interactive[key] - overall_savings[key]     #new time after fixing this metric
+        percentage_difference = 100 - ((difference / time_to_interactive[key]) * 100)  # 100 -(new/old)*100 -> shows the percentage impact of this metric
+        percent_impact[key] = percentage_difference
+        lists_values.append(percentage_difference)
+    
+    x_axis = list(range(1, len(lists_values)+1))
+    y_axis = lists_values
+
+    rgb = (random.random(), random.random(), random.random())
+    plt.plot(x_axis, y_axis, c=rgb)
+    plt.title("percentage improvement in PLTs if lazy-loading is implemented")
+    plt.xlabel("Rank of wesbite")
+    # plt.set_label(legend_)
+    plt.ylabel("Improvement Percentage")
+
+    plt.show()
+    return percent_impact
 
 def overallBinaryMetricAnalysis (audits, metric): 
     scores, numericValues = scoreList_MetricNumericVals(audits, metric, 'numeric')
-    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'interactive', 'cummulative-layout-shift']
     print(scores, numericValues)
 
-
-
-
-
-def getDataForMetric (audits, metric):
-    data = {}
-    for website, websiteData in audits.items():
-        data[website] = {}
-    for website, websiteData in audits.items():
-        if website != '09-360.cn' and website != '23-zhanqi.tv' and website != '48-chaturbate.com' and website != '30-myshopify.com' and website != '27-instagram.com' and website != '46-yy.com' and website != '32-microsoftonline.com' and website != '34-bongacams.com':
-            for dataType, dataTypeData in websiteData.items():
-                for metricInJson, metricInJsonData in dataTypeData.items():
-                    if metricInJson == metric:
-                        if metricInJsonData['score'] is not None:
-                            print(website, metricInJsonData)
-                            data[website]['overallSavingsMs'] = metricInJsonData['overallSavingsMs']
-                            data[website]['score'] = metricInJsonData['score']
-                            data[website]['numericValue'] = metricInJsonData['numericValue']
-                            data[website]['numericUnit'] = metricInJsonData['numericUnit']
-                        if metricInJsonData['score'] is None:
-                            print(website, metricInJsonData)
-                            data[website]['overallSavingsMs'] = 0
-                            data[website]['score'] = metricInJsonData['score']
-                            data[website]['numericValue'] = metricInJsonData['numericValue']
-                            data[website]['numericUnit'] = metricInJsonData['numericUnit']
-    return data
 if __name__ == "__main__":
-    # audits = makeAuditList()
-    # readWriteJson('audits.json', 'w', audits)
-    audits = readWriteJson('audits.json', 'r', None)
-    performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'time-to-interactive', 'cummulative-layout-shift']
+    audits = makeAuditList()
 
+    a_file = open("audits.json", "w")
+    json.dump(audits, a_file)
+    # a_file.close()
+
+    # print(audits)
+    # imageAnalysis(audits, 'offscreen-images')
+    
     '''
         BINARY METRIC ANALYSIS
 
@@ -288,19 +339,18 @@ if __name__ == "__main__":
 
 
 
-    #SERVER RESPONSE TIME
-    data = getDataForMetric(audits, 'legacy-javascript')
-    print(data)
-    readWriteJson('legacy-javascript.json', 'w', data)
+
+
 
     
         # CODE TO MAKE BAR PLOTS AND JSON FILES OF GRADIENTS
+    # performanceScoreMakers = ['first-contentful-paint', 'largest-contentful-paint', 'speed-index', 'total-blocking-time', 'interactive', 'cummulative-layout-shift']
 
     # for analysisMetric in performanceScoreMakers:
     #     top_ten_gradients = overallNumericMetricAnalysis(audits, analysisMetric, 10)
     #     # print("keys:", top_ten_gradients.keys())
     #     barPlot(top_ten_gradients, analysisMetric)
-    #     readWriteJson('Top10-' + analysisMetric + '.json', 'w', top_ten_gradients)
+    #     readWriteJson(analysisMetric + '.json', 'w', top_ten_gradients)
 
     
 

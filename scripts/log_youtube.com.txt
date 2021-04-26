@@ -1,0 +1,255 @@
+Mon, 26 Apr 2021 00:22:57 GMT ChromeLauncher Waiting for browser.
+Mon, 26 Apr 2021 00:22:57 GMT ChromeLauncher Waiting for browser...
+Mon, 26 Apr 2021 00:22:57 GMT ChromeLauncher Waiting for browser.....
+Mon, 26 Apr 2021 00:22:57 GMT ChromeLauncher Waiting for browser.....[32m✓[0m
+Mon, 26 Apr 2021 00:22:58 GMT config:warn IFrameElements gatherer requested, however no audit requires it.
+Mon, 26 Apr 2021 00:22:58 GMT config:warn FormElements gatherer requested, however no audit requires it.
+Mon, 26 Apr 2021 00:22:58 GMT status Connecting to browser
+Mon, 26 Apr 2021 00:22:58 GMT status Resetting state with about:blank
+Mon, 26 Apr 2021 00:22:58 GMT status Benchmarking machine
+Mon, 26 Apr 2021 00:22:59 GMT status Initializing…
+Mon, 26 Apr 2021 00:22:59 GMT status Running defaultPass pass CSSUsage, JsUsage, ViewportDimensions, ConsoleMessages, AnchorElements, ImageElements, LinkElements, MetaElements, ScriptElements, IFrameElements, FormElements, MainDocumentContent, GlobalListeners, AppCacheManifest, Doctype, DOMStats, OptimizedImages, PasswordInputsWithPreventedPaste, ResponseCompression, TagsBlockingFirstPaint, FontSize, EmbeddedContent, RobotsTxt, TapTargets, Accessibility, TraceElements, InspectorIssues, SourceMaps, FullPageScreenshot
+Mon, 26 Apr 2021 00:22:59 GMT status Resetting state with about:blank
+Mon, 26 Apr 2021 00:22:59 GMT status Setting up network for the pass trace
+Mon, 26 Apr 2021 00:23:00 GMT status Cleaning browser cache
+Mon, 26 Apr 2021 00:23:00 GMT status Beginning devtoolsLog and trace
+Mon, 26 Apr 2021 00:23:00 GMT status Loading page & waiting for onload
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: CSSUsage
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: JsUsage
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: ViewportDimensions
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: ConsoleMessages
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: AnchorElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: ImageElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: LinkElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: MetaElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: ScriptElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: IFrameElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: FormElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: MainDocumentContent
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: GlobalListeners
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: AppCacheManifest
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: Doctype
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: DOMStats
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: OptimizedImages
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: PasswordInputsWithPreventedPaste
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: ResponseCompression
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: TagsBlockingFirstPaint
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: FontSize
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: EmbeddedContent
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: RobotsTxt
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: TapTargets
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: Accessibility
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: TraceElements
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: InspectorIssues
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: SourceMaps
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering in-page: FullPageScreenshot
+Mon, 26 Apr 2021 00:23:03 GMT status Gathering trace
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering devtoolsLog & network records
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: CSSUsage
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: JsUsage
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: ViewportDimensions
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: ConsoleMessages
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: AnchorElements
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: ImageElements
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: LinkElements
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: MetaElements
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: ScriptElements
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: IFrameElements
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: FormElements
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: MainDocumentContent
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: GlobalListeners
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: AppCacheManifest
+Mon, 26 Apr 2021 00:23:04 GMT status Gathering: Doctype
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: DOMStats
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: OptimizedImages
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: PasswordInputsWithPreventedPaste
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: ResponseCompression
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: TagsBlockingFirstPaint
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: FontSize
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: EmbeddedContent
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: RobotsTxt
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: TapTargets
+Mon, 26 Apr 2021 00:23:05 GMT status Gathering: Accessibility
+Mon, 26 Apr 2021 00:23:06 GMT status Gathering: TraceElements
+Mon, 26 Apr 2021 00:23:06 GMT status Gathering: InspectorIssues
+Mon, 26 Apr 2021 00:23:06 GMT status Gathering: SourceMaps
+Mon, 26 Apr 2021 00:23:06 GMT status Gathering: FullPageScreenshot
+Mon, 26 Apr 2021 00:23:06 GMT status Populate base artifacts
+Mon, 26 Apr 2021 00:23:06 GMT status Get webapp manifest
+Mon, 26 Apr 2021 00:23:06 GMT status Collect stacks
+Mon, 26 Apr 2021 00:23:06 GMT status Running offlinePass pass ServiceWorker
+Mon, 26 Apr 2021 00:23:06 GMT status Resetting state with about:blank
+Mon, 26 Apr 2021 00:23:06 GMT status Setting up network for the pass trace
+Mon, 26 Apr 2021 00:23:06 GMT status Beginning devtoolsLog and trace
+Mon, 26 Apr 2021 00:23:06 GMT status Loading page & waiting for onload
+Mon, 26 Apr 2021 00:23:08 GMT status Gathering in-page: ServiceWorker
+Mon, 26 Apr 2021 00:23:08 GMT status Gathering devtoolsLog & network records
+Mon, 26 Apr 2021 00:23:08 GMT status Gathering: ServiceWorker
+Mon, 26 Apr 2021 00:23:08 GMT status Running redirectPass pass HTTPRedirect
+Mon, 26 Apr 2021 00:23:08 GMT status Resetting state with about:blank
+Mon, 26 Apr 2021 00:23:08 GMT status Setting up network for the pass trace
+Mon, 26 Apr 2021 00:23:08 GMT status Beginning devtoolsLog and trace
+Mon, 26 Apr 2021 00:23:08 GMT status Loading page & waiting for onload
+Mon, 26 Apr 2021 00:23:09 GMT status Gathering in-page: HTTPRedirect
+Mon, 26 Apr 2021 00:23:09 GMT status Gathering devtoolsLog & network records
+Mon, 26 Apr 2021 00:23:09 GMT status Gathering: HTTPRedirect
+Mon, 26 Apr 2021 00:23:09 GMT status Disconnecting from browser...
+Mon, 26 Apr 2021 00:23:09 GMT status Analyzing and running audits...
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Uses HTTPS
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Redirects HTTP traffic to HTTPS
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Registers a service worker that controls page and `start_url`
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Has a `<meta name="viewport">` tag with `width` or `initial-scale`
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: First Contentful Paint
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Largest Contentful Paint
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: First Meaningful Paint
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Speed Index
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Screenshot Thumbnails
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Final Screenshot
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Estimated Input Latency
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Total Blocking Time
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Max Potential First Input Delay
+Mon, 26 Apr 2021 00:23:09 GMT status Auditing: Cumulative Layout Shift
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: No browser errors logged to the console
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Initial server response time was short
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: First CPU Idle
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Time to Interactive
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: User Timing marks and measures
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoid chaining critical requests
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoid multiple page redirects
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Web app manifest and service worker meet the installability requirements
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Provides a valid `apple-touch-icon`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Configured for a custom splash screen
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Sets a theme color for the address bar.
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Manifest has a maskable icon
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Content is sized correctly for the viewport
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Displays images with correct aspect ratio
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Serves images with appropriate resolution
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Fonts with `font-display: optional` are preloaded
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids deprecated APIs
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Minimizes main-thread work
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: JavaScript execution time
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Preload key requests
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Preconnect to required origins
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: All text remains visible during webfont loads
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Diagnostics
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Network Requests
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Network Round Trip Times
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Server Backend Latencies
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Tasks
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Metrics
+Mon, 26 Apr 2021 00:23:10 GMT CLS-AF:warn Trace does not have weighted layout shift scores. CLS-AF may not be accurate.
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Performance budget
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Timing budget
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Keep request counts low and transfer sizes small
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Minimize third-party usage
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Lazy load third-party resources with facades
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Largest Contentful Paint element
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoid large layout shifts
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoid long main-thread tasks
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids `unload` event listeners
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoid non-composited animations
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Image elements have explicit `width` and `height`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Page has valid source maps
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Preload Largest Contentful Paint image
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Full-page screenshot
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Site works cross-browser
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Page transitions don't feel like they block on the network
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Each page has a URL
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[accesskey]` values are unique
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[aria-*]` attributes match their roles
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `button`, `link`, and `menuitem` elements have accessible names
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[aria-hidden="true"]` is not present on the document `<body>`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[aria-hidden="true"]` elements do not contain focusable descendents
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: ARIA input fields have accessible names
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: ARIA `meter` elements have accessible names
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: ARIA `progressbar` elements have accessible names
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[role]`s have all required `[aria-*]` attributes
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Elements with an ARIA `[role]` that require children to contain a specific `[role]` have all required children.
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[role]`s are contained by their required parent element
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[role]` values are valid
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: ARIA toggle fields have accessible names
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: ARIA `tooltip` elements have accessible names
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: ARIA `treeitem` elements have accessible names
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[aria-*]` attributes have valid values
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[aria-*]` attributes are valid and not misspelled
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Buttons have an accessible name
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: The page contains a heading, skip link, or landmark region
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Background and foreground colors have a sufficient contrast ratio
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>`, `<template>` or `<div>` elements.
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Definition list items are wrapped in `<dl>` elements
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Document has a `<title>` element
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[id]` attributes on active, focusable elements are unique
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: ARIA IDs are unique
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: No form fields have multiple labels
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<frame>` or `<iframe>` elements have a title
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Heading elements appear in a sequentially-descending order
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<html>` element has a `[lang]` attribute
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<html>` element has a valid value for its `[lang]` attribute
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Image elements have `[alt]` attributes
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<input type="image">` elements have `[alt]` text
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Form elements have associated labels
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Links have a discernible name
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: The document does not use `<meta http-equiv="refresh">`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[user-scalable="no"]` is not used in the `<meta name="viewport">` element and the `[maximum-scale]` attribute is not less than 5.
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<object>` elements have `[alt]` text
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: No element has a `[tabindex]` value greater than 0
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Cells in a `<table>` element that use the `[headers]` attribute refer to table cells within the same table.
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<th>` elements and elements with `[role="columnheader"/"rowheader"]` have data cells they describe.
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `[lang]` attributes have a valid value
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: `<video>` elements contain a `<track>` element with `[kind="captions"]`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Custom controls have associated labels
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Custom controls have ARIA roles
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: User focus is not accidentally trapped in a region
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Interactive controls are keyboard focusable
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Interactive elements indicate their purpose and state
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: The page has a logical tab order
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: The user's focus is directed to new content added to the page
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Offscreen content is hidden from assistive technology
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: HTML5 landmark elements are used to improve navigation
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Visual order on the page follows DOM order
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Uses efficient cache policy on static assets
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids enormous network payloads
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Defer offscreen images
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Eliminate render-blocking resources
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Minify CSS
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Minify JavaScript
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Remove unused CSS
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Remove unused JavaScript
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Serve images in next-gen formats
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Efficiently encode images
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Enable text compression
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Properly size images
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Use video formats for animated content
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Remove duplicate modules in JavaScript bundles
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoid serving legacy JavaScript to modern browsers
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids Application Cache
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Page has the HTML doctype
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Properly defines charset
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids an excessive DOM size
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Links to cross-origin destinations are safe
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids requesting the geolocation permission on page load
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: No issues in the `Issues` panel in Chrome Devtools
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids `document.write()`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids front-end JavaScript libraries with known security vulnerabilities
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Detected JavaScript libraries
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Avoids requesting the notification permission on page load
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Allows users to paste into password fields
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Use HTTP/2
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Uses passive listeners to improve scrolling performance
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Document has a meta description
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Page has successful HTTP status code
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Document uses legible font sizes
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Links have descriptive text
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Links are crawlable
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Page isn’t blocked from indexing
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: robots.txt is valid
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Tap targets are sized appropriately
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Document has a valid `hreflang`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Document avoids plugins
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Document has a valid `rel=canonical`
+Mon, 26 Apr 2021 00:23:10 GMT status Auditing: Structured data is valid
+Mon, 26 Apr 2021 00:23:10 GMT status Generating results...
+Mon, 26 Apr 2021 00:23:10 GMT Printer json output written to ./2-youtube.com.json
+Mon, 26 Apr 2021 00:23:10 GMT ChromeLauncher Killing Chrome instance 19889

@@ -1,3 +1,26 @@
-unsized-images
-offscreen-images
-lazy-loading
+Part A
+Plots, improvement along with related work. Describe plots
+
+legacy-javascript
+
+offscreen-images ( "description": "Consider lazy-loading offscreen and hidden images after all critical resources have finished loading to lower time to interactive. [Learn more](https://web.dev/offscreen-images/).",)
+
+uses-text-compression (      "description": "Text-based resources should be served with compression (gzip, deflate or brotli) to minimize total network bytes. [Learn more](https://web.dev/uses-text-compression/).",)
+
+uses-rel-preloads (      "description": "Consider using `<link rel=preload>` to prioritize fetching resources that are currently requested later in page load. [Learn more](https://web.dev/uses-rel-preload/).",)
+
+unused-javascript (      "description": "Remove unused JavaScript to reduce bytes consumed by network activity. [Learn more](https://web.dev/unused-javascript/).",)
+
+redirects (      "description": "Redirects introduce additional delays before the page can be loaded. [Learn more](https://web.dev/redirects/).",)
+
+unused-css-rules ("description": "Remove dead rules from stylesheets and defer the loading of CSS not used for above-the-fold content to reduce unnecessary bytes consumed by network activity. [Learn more](https://web.dev/unused-css-rules/).",)
+
+minify-css / minify-javascript ("description": "Minifying CSS files can reduce network payload sizes. [Learn more](https://web.dev/unminified-css/).",)
+
+first-cpu-idle (      "description": "First CPU Idle marks the first time at which the page's main thread is quiet enough to handle input.  [Learn more](https://web.dev/first-cpu-idle/).",)
+
+uses-webp-images ("description": "Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. [Learn more](https://web.dev/uses-webp-images/).",)
+
+Part B
+Improve Experiment Graphs
+Detailed description

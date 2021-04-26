@@ -1,0 +1,47 @@
+{
+  "name": "webpack-esnext-boilerplate",
+  "version": "0.2.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm test && node tasks/build.js",
+    "start": "npm test && node tasks/watch.js",
+    "test": "eslint app/scripts/**/*.js tasks/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philipwalton/webpack-esnext-boilerplate.git"
+  },
+  "author": {
+    "name": "Philip Walton",
+    "email": "philip@philipwalton.com",
+    "url": "http://philipwalton.com"
+  },
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/philipwalton/webpack-esnext-boilerplate/issues"
+  },
+  "homepage": "https://github.com/philipwalton/webpack-esnext-boilerplate#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.4.4",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "chokidar": "^3.0.0",
+    "connect": "^3.6.6",
+    "core-js": "^3.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-google": "^0.12.0",
+    "fs-extra": "^7.0.1",
+    "lodash": "^4.17.15",
+    "md5": "^2.2.1",
+    "nunjucks": "^3.2.0",
+    "regenerator-runtime": "^0.13.2",
+    "serve-static": "^1.14.0",
+    "terser-webpack-plugin": "^1.2.3",
+    "webpack": "^4.31.0",
+    "webpack-manifest-plugin": "^2.0.4",
+    "whatwg-fetch": "^3.0.0"
+  }
+}

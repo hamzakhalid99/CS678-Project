@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Webpack ES.next Boilerplate</title>
+
+  <!-- List module entry in the head for faster discovery/preloading -->
+  <script type="module" src="{{ 'main.mjs' | revision }}"></script>
+</head>
+<body>
+  {% include 'nomodule-shim.html' %}
+  <script nomodule src="{{ 'nomodule.js' | revision }}"></script>
+  <h1>Loaded</h1>
+</body>
+</html>
